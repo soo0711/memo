@@ -136,7 +136,7 @@
 			
 			// 중복 확인 후 사용 가능한 아이디인지 확인
 			// => idCheckOk 클래스 d-none이 없을 때
-			if ($(".idCheckOk").hasClass("d-none")){
+			if ($("#idCheckOk").hasClass("d-none")){
 				alert("아이디 중복확인을 다시 해주세요.")
 				return false;
 			}
@@ -155,7 +155,7 @@
 			.done(function(data) { // response
 				// {"code" : 200, "result" : "성공"}
 				if (data.code == 200){
-					alert("가입을 환영합니다. 로그인 해주세요.")
+					alert("가입을 환영합니다. 로그인 해주세요.");
 					location.href("/user/sign-in-view"); // 무조건 get방식
 				} else {
 					// 로직 실패
