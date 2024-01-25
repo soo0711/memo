@@ -29,4 +29,17 @@ public interface PostMapper {
 	public Post selectPostListByPostIdUserId(
 			@Param("postId") int postId,
 			@Param("userId") int userId);
+	
+	// input: params		output: X
+	public void updatePostByPostId(
+			@Param("postId") int postId,
+			@Param("subject") String subject,
+			@Param("content") String content,
+			@Param("imagePath") String imagePath);
+	
+	// input: postId, userId		output: X
+	public int deletePostByPostIdUserId(
+			@Param("postId") int postId,
+			@Param("userId") int userId);
+	
 }
