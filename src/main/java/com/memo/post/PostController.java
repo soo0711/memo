@@ -23,6 +23,8 @@ public class PostController {
 	
 	@GetMapping("/post-list-view")
 	public String postListView(
+			@RequestParam(value = "prevId", required = false) Integer prevIdParam,
+			@RequestParam(value = "nextId", required = false) Integer nextIdParam,
 			Model model,
 			HttpSession session) { // session은 request시 받아온다.
 		// 로그인 여부 조회
@@ -34,9 +36,29 @@ public class PostController {
 		}
 		
 		// DB 글 목록 조회 - mybatis로 만들기 
-		List<Post> post = postBO.getPostListById(userId);
-		model.addAttribute("postList", post);
+		List<Post> post = postBO.getPostListById(userId, prevIdParam, nextIdParam);
+		int nextId = 0;
+		int prevId = 0;
 		
+		if (post.isEmpty() == false) {
+			// postList가 비어있을 때 [] 오류를 방지하기 위함
+			prevId = post.get(0).getId();
+			nextId = post.get(post.size() - 1).getId();
+			
+			// 이전 방향의 끝인가?
+			// prevId와 post 테이블의 가장 큰 id값과 같으면 이전 페이지 없음
+			if (postBO.isPrevLastPageByUserId(userId, prevId)) {
+				prevId = 0;
+			}
+			// 다음 방향의 끝인가?
+			// nextId와 post 테이블의 가장 작은 id값과 같으면 다음 페이지 없음
+			if (postBO.isNextLastPageByUserId(userId, nextId)){
+				nextId = 0;
+			}
+		}
+		model.addAttribute("prevId" ,prevId);
+		model.addAttribute("nextId" ,nextId);
+		model.addAttribute("postList", post);
 		model.addAttribute("viewName", "post/postList");
 		
 		return "template/layout";
@@ -66,8 +88,10 @@ public class PostController {
 		// DB조회 - postId + userId
 		Post post = postBO.getPostByPostIdUserId(postId, userId);
 		
-		model.addAttribute("post" ,post);
+		model.addAttribute("post", post);
 		model.addAttribute("viewName", "post/postDetail");
 		return "template/layout";
 	}
+	
+	
 }

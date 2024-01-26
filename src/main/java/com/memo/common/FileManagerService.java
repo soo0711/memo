@@ -20,9 +20,9 @@ public class FileManagerService { // 이미지 업로드, 이미지 삭제
 	// 학원용 
 	// 마지막에 꼭 / 넣어야한다.
 	// 학원
-	// public static final String FILE_UPLOAD_PATH = "D:\\jeonsoohyun\\6_spring_project\\memo\\memo_workspace\\images/";
+	 public static final String FILE_UPLOAD_PATH = "D:\\jeonsoohyun\\6_spring_project\\memo\\memo_workspace\\images/";
 	// 집
-	public static final String FILE_UPLOAD_PATH = "D:\\memo_spirng_img\\images/";
+	// public static final String FILE_UPLOAD_PATH = "D:\\memo_spirng_img\\images/";
 
 	// input: File 원본, userLoginId(폴더명)		output: 이미지 경로
 	public String saveFile(String loginId, MultipartFile file) {
