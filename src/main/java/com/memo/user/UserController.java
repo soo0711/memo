@@ -36,7 +36,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 로그아웃
+	 * 로그아웃 하기
 	 * @param session
 	 * @return
 	 */
